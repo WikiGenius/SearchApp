@@ -1,9 +1,19 @@
 # Import necessary packages
-from kivy.uix.boxlayout import BoxLayout
 from kivy import platform
-from kivy.core.window import Window
 from kivy.properties import ObjectProperty
+from kivy.uix.screenmanager import Screen
+from kivy.core.window import Window
 from kivy.uix.floatlayout import FloatLayout
+
+# Define a custom widget for loading files
+class LoadFile(FloatLayout):
+    load = ObjectProperty(None)
+    cancel = ObjectProperty(None)
+        
+# Define the main widget for the app
+class MainScreen(Screen):
+    pass       
+
 
 if platform == "android":
 
@@ -28,11 +38,3 @@ elif platform != 'ios':
     from kivy.config import Config 
     Config.set('input', 'mouse', 'mouse, disable_multitouch')
     
-# Define a custom widget for loading files
-class LoadFile(FloatLayout):
-    load = ObjectProperty(None)
-    cancel = ObjectProperty(None)
-        
-# Define the main widget for the app
-class SearchDashboard(BoxLayout):
-    pass

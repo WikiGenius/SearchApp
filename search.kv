@@ -2,80 +2,68 @@
 # Date: 03/02/2023
 # GitHub: https://github.com/WikiGenius
 
-#:import Animation kivy.animation.Animation
+<MainScreen>:
+    detection_image: detection_image
+    search_input: search_input
+    upload_video_button: upload_video_button
+    find_object_button: find_object_button
+    FloatLayout:
+        Image:
+            id: detection_image
+            source: './data/upload.png'
+            allow_stretch: True
+            keep_ratio: True
+            opacity: 0.1
 
-<SearchDashboard>
-    text_input: text_input
-    image: image
-    BoxLayout:
-        orientation:"vertical"
-        spacing:30
-        padding:20
-        # Add a Video for displaying the video results
-        RoundedImag:
-            id:image
-            size_hint:(1, 0.5)
-            pos_hint:{'top': 1}
+        MDTextField:
+            id: search_input
+            size_hint: 0.5, None
+            height: dp(48)
+            pos_hint: {'center_x': 0.5, 'top': 0.98}
+            hint_text: 'Search...'
+            hint_text_color: app.theme_cls.disabled_hint_text_color
+            mode: "line"
+            icon_right: "magnify"
+            icon_right_color: app.theme_cls.primary_color
+            line_color_focus: app.theme_cls.primary_color
+            line_color_normal: app.theme_cls.primary_color
+            fill_color: app.theme_cls.bg_dark
+            foreground_color: app.theme_cls.text_color
 
-        # Add a button for importing a video file
-        RoundButton:
-            text:'Import Video'
-            size_hint:(0.2, 0.1)
-            pos_hint:{'top': 0.9, 'center_x': 0.5}
-            font_size:20
-            on_press: app.show_load()
+        MDFillRoundFlatButton:
+            id: upload_video_button
+            size_hint: 0.1, None
+            height: dp(48)
+            pos_hint: {'x': 0.05, 'top': 0.95}
+            # text: 'Upload Video'
+            on_release: app.upload_video()
+        
+            # Add icon
+            MDIcon:
+                icon: "./data/upload.png"
+                pos_hint: {"center_y": .5}
+                size_hint: None, None
+                size: self.parent.size
+        
+        MDFillRoundFlatButton:
+            id: find_object_button
+            size_hint: 0.1, None
+            height: dp(48)
+            pos_hint: {'right': 0.95, 'top': 0.95}
+            # text: 'Find Object'
+            on_release: app.find_object()
+        
+            # Add icon
+            MDIcon:
+                icon: "./data/find.png"
+                pos_hint: {"center_y": .5}
+                size_hint: None, None
+                size: self.parent.size
 
-        # Add a text input for entering the search query
-        RoundedTextInput:
-            id: text_input
-            hint_text:'Search'
-            size_hint:(0.6, 0.07)
-            pos_hint:{'top': 0.38, 'right': 0.8}
-            multiline:False
-            font_size:30
-            halign: "center"
-
-        # Add a button for starting/stopping object detection
-        RoundButton:
-            text:'Find'
-            size_hint:(0.2, 0.1)
-            pos_hint:{'top': 0.2, 'center_x': 0.5}
-            font_size:20
-            on_press: 
-                app.update_search()
-
-<RoundButton@Button>:
-    background_normal: ''
-    background_color:(0,0,0,0)
-    canvas.before:
-        Color:
-            rgba: (1, 1, 1, 0.5)
-        Ellipse:
-            pos: self.pos
-            size: self.size
-    on_press:
-        Animation(d=.2, rgba=(0, 1, 0, 1)).start(self.canvas.before.children[0])
-    on_release:
-        Animation(d=.2, rgba=(1, 1, 1, 0.5)).start(self.canvas.before.children[0])
-
-<RoundedTextInput@TextInput>:
-    background_color: 1, 1, 1, 0
-    canvas.before:
-        Color:
-            rgba: [1,1,1,.5]
-        RoundedRectangle:
-            size: self.size
-            pos: self.pos
-            radius: [20, ]
-<RoundedImag@Image>:
-    # background_color:0,0,0,0
-    # canvas.before:
-    #     Color:
-    #         # rgba: 1, 1, 1, 0.5
-    #     RoundedRectangle:
-    #         size: self.size
-    #         pos: self.pos
-    #         radius: [75, ]
+        Image:
+            source: './data/logo.png'
+            size_hint: 0.2, 0.2
+            pos_hint: {'right': 0.95, 'y': 0.05}
 <LoadFile>:
     BoxLayout:
         size: root.size

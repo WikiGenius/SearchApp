@@ -1,32 +1,35 @@
 import os
 import cv2
-from kivy.app import App
+from kivymd.app import MDApp
+from kivymd.theming import ThemeManager
+from kivy.uix.popup import Popup
 from kivy.clock import Clock
 from kivy.core.window import Window
 from kivy.graphics.texture import Texture
-from utils import Detector
+from utils import Detector, resize
 from kivy import platform
-from kivy.uix.popup import Popup
-
 from utils.layout import *
 # from utils.permissions import *
 
-class SearchApp(App):
-    
+class SearchApp(MDApp):
+    theme_cls = ThemeManager()
     def build(self):
-        # Set background color of window
-        # Window.clearcolor = (0, 0, 0.2)
+        
+        Window.clearcolor = (0.133, 0.133, 0.133, 1)  #set window background color to #222222
+        self.theme_cls.primary_palette = "Red"
+        self.theme_cls.accent_palette = "Gray"
+        self.theme_cls.theme_style = "Dark"
         self.started = False
         if platform == 'android':
             self.fps = 5
             Window.bind(on_resize=hide_landscape_status_bar)
         else:
-            self.fps = 30
+            self.fps = 20
         # Create instance of SearchDashboard
-        self.search = SearchDashboard()
+        self.screen = MainScreen(name='main')
 
         # Return the instance of SearchDashboard
-        return self.search
+        return self.screen
     
     def on_start(self): 
         self.thread = True
@@ -53,8 +56,12 @@ class SearchApp(App):
         ret, frame = self.capture.read()
         # Stop the detector if there are no more frames
         if not ret:
+            # self.screen.detection_image.source = './data/upload.png'
+            self.screen.detection_image.opacity = 0.1
             self.detector.stop()
             return
+        frame = resize(frame, height=600)
+
         # Perform object detection on the frame using the YOLOv6n model
         frame =  self.detector.detect(frame,  conf_thres=0.25, iou_thres=0.45, frame_count=self.frame_count, skip_frame = 1, filter_classes=self.filter_classes)
         if self.thread:
@@ -75,14 +82,16 @@ class SearchApp(App):
             
 
         # Update the image in SearchDashboard with the new frame
-        self.search.image.texture = img_texture
+        self.screen.detection_image.texture = img_texture
+        self.screen.detection_image.opacity = 1
         # Increment frame count
         self.frame_count += 1
-        Clock.schedule_once(self.update)
+        # Clock.schedule_once(self.update)
         
-    def update_search(self):
+    def find_object(self):
+        print(f"Finding object... {self.screen.search_input.text}")
         # Update the filter_classes variable based on the text input in SearchDashboard
-        self.filter_classes = self.search.text_input.text
+        self.filter_classes = self.screen.search_input.text
         if self.filter_classes:
             self.filter_classes = self.filter_classes.split(',')    
     
@@ -90,13 +99,14 @@ class SearchApp(App):
         # Dismiss the file chooser popup
         self._popup.dismiss()
 
-    def show_load(self):
+    def upload_video(self):
         # Show the file chooser popup to load a video
         content = LoadFile(load=self.load, cancel=self.dismiss_popup)
         self._popup = Popup(title="Load file", content=content,
                             size_hint=(0.7, 0.7))
         self._popup.open()
     def load(self, path, vid_path):
+        print("Uploading video...")
         # Load the selected video file
         self.start_app(vid_path)
         # Dismiss the file chooser popup
