@@ -36,7 +36,7 @@ version = 0.1
 
 # (list) Application requirements
 # comma separated e.g. requirements = sqlite3,kivy
-requirements = python3, kivy, plyer,numpy, android, Pillow, opencv, tflite-runtime 
+requirements = python3, kivy==master, https://github.com/kivymd/KivyMD/archive/master.zip, plyer,numpy, android, Pillow, opencv, tflite-runtime 
 
 
 # (str) Presplash of the application

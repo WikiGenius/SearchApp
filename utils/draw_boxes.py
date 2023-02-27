@@ -9,10 +9,20 @@ palette = (2 ** 11 - 1, 2 ** 15 - 1, 2 ** 20 - 1)
 data_deque = {}
 
 def draw_boxes(img, ratio, dwdh, output_data, conf_thres=0.25, filter_classes=None):
-    for i,(batch_id,x0,y0,x1,y1,cls_id,score) in enumerate(output_data):
+    output_data = np.transpose(output_data)
+    scores = output_data[:, 4:]
+    boxes = output_data[:, :4]
+    for i,(cx,cy,w,h) in enumerate(boxes):
+        x0 = cx - w /2
+        y0 = cy - h /2
+        x1=x0+w
+        y1=y0+h
+
+        cls_id = np.argmax(scores[i])
+        score = scores[i][cls_id]
         cls_id = int(cls_id)
         name = utils.NAMES[cls_id]
-        score = round(float(score),2)
+        score = round(float(score),3)
         
         if filter_classes and name in filter_classes and score > conf_thres:
             box = np.array([x0,y0,x1,y1])

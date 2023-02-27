@@ -38,14 +38,11 @@ def preprocess(img, new_shape=(640, 640)):
     image = img.copy()
     image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
     image, ratio, dwdh = letterbox(image, new_shape, auto=False)
-    image = image.transpose((2, 0, 1))
     image = np.expand_dims(image, 0)
     image = np.ascontiguousarray(image)
-
-    im = image.astype(np.float32)
-    im /= 255
-    return im,  ratio, dwdh
-
+    image = image.astype(np.float32)
+    image /= 255
+    return image,  ratio, dwdh
 
 def resize(image, width=None, height=None, inter=cv2.INTER_AREA):
     # initialize the dimensions of the image to be resized and
