@@ -24,15 +24,14 @@
             hint_text_color: app.theme_cls.disabled_hint_text_color
             mode: "line"
             icon_right: "magnify"
-            icon_right_color: app.theme_cls.primary_color
-            line_color_focus: app.theme_cls.primary_color
-            line_color_normal: app.theme_cls.primary_color
-            fill_color: app.theme_cls.bg_dark
-            foreground_color: app.theme_cls.text_color
+            icon_right_color: app.theme_cls.primary_light
+            line_color_focus: app.theme_cls.primary_light
+            line_color_normal: app.theme_cls.primary_light
+            md_bg_color: app.theme_cls.primary_light
 
         MDFillRoundFlatButton:
             id: upload_video_button
-            size_hint: 0.1, None
+            size_hint: 0.07, None
             height: dp(48)
             pos_hint: {'x': 0.05, 'top': 0.95}
             # text: 'Upload Video'
@@ -40,14 +39,14 @@
         
             # Add icon
             MDIcon:
-                icon: "./data/upload.png"
+                icon: "./data/upload_new.png"
                 pos_hint: {"center_y": .5}
                 size_hint: None, None
                 size: self.parent.size
         
         MDFillRoundFlatButton:
             id: find_object_button
-            size_hint: 0.1, None
+            size_hint: 0.07, None
             height: dp(48)
             pos_hint: {'right': 0.95, 'top': 0.95}
             # text: 'Find Object'
@@ -55,7 +54,7 @@
         
             # Add icon
             MDIcon:
-                icon: "./data/find.png"
+                icon: "./data/find_new.png"
                 pos_hint: {"center_y": .5}
                 size_hint: None, None
                 size: self.parent.size

@@ -15,6 +15,27 @@ class MainScreen(Screen):
     pass       
 
 
+light_red_color = {
+            "Red": {
+                "50": "#F63D54",
+                "100": "#F63D54",
+                "200": "#F63D54",
+                "300": "#F63D54",
+                "400": "#F63D54",
+                "500": "#F63D54",
+                "600": "#F63D54",
+                "700": "#F63D54",
+                "800": "#F63D54",
+                "900": "#F63D54",
+                "A100": "#F63D54",
+                "A200": "#F63D54",
+                "A400": "#F63D54",
+                "A700": "#F63D54",
+                "ContrastText": "#F63D54",  # Text color for light theme
+                "ContrastDark": "#F63D54"   # Text color for dark theme
+            }
+        }
+
 if platform == "android":
 
     from jnius import autoclass

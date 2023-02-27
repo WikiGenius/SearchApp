@@ -14,11 +14,12 @@ from utils.layout import *
 class SearchApp(MDApp):
     theme_cls = ThemeManager()
     def build(self):
-        
+        # self.theme_cls.primary_light
         Window.clearcolor = (0.133, 0.133, 0.133, 1)  #set window background color to #222222
-        self.theme_cls.primary_palette = "Red"
         self.theme_cls.accent_palette = "Gray"
         self.theme_cls.theme_style = "Dark"
+        self.theme_cls.primary_palette = "Red"
+        self.theme_cls.colors.update(light_red_color)
         self.started = False
         if platform == 'android':
             self.fps = 5
@@ -62,7 +63,7 @@ class SearchApp(MDApp):
             return
         frame = resize(frame, height=600)
 
-        # Perform object detection on the frame using the YOLOv6n model
+        # Perform object detection on the frame using the YOLOv8n model
         frame =  self.detector.detect(frame,  conf_thres=0.25, iou_thres=0.45, frame_count=self.frame_count, skip_frame = 1, filter_classes=self.filter_classes)
         if self.thread:
             cv2.line(frame, (20, 25), (127, 25), [85, 45, 255], 30)
