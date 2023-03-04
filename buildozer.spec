@@ -23,7 +23,7 @@ source.include_patterns = assets/*,utils
 #source.exclude_exts = spec
 
 # (list) List of directory to exclude (let empty to not exclude anything)
-source.exclude_dirs = mobile_tflite, __pycache__, bin,test*
+source.exclude_dirs = mobile_tflite, __pycache__, bin,test*,assets/images/*
 # source.exclude_dirs = mobile_tflite,bin,test*
 
 # (list) List of exclusions using pattern matching

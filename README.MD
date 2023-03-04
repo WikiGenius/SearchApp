@@ -1,6 +1,6 @@
 # SearchApp
 
-SearchApp is a Python application for object detection on videos using YOLOv8n Tflite model.
+SearchApp is a Python application for object detection on videos using YOLOv8n.
 
 This app can be used in different platforms like Android, Ios, Ubuntu, Windows, ..
 
@@ -18,7 +18,7 @@ This app can be used in different platforms like Android, Ios, Ubuntu, Windows, 
 1. Clone the repository:
 
    ```sh
-   git clone https://github.com/WikiGenius/cross_platform_app.git
+   git clone https://github.com/WikiGenius/SearchApp.git
 
 
 2. Install the dependencies:
@@ -34,6 +34,13 @@ python main.py
 4. Load a video file by clicking on the "Upload Video" button.
 
 5. Enter object classes separated by commas in the text input and click on the "Find Object" button to filter the object classes.
+
+## Screenshots
+
+<img src="assets/images/Desktop.png" alt="Desktop screenshot" width="500">
+
+
+<img src="assets/images/mobile.jpg" alt="Mobile screenshot" width="300">
 
 ## Author
 - Muhammed Elyamani
