@@ -10,3 +10,5 @@ recipes.txt
 file_chooser_popup.py
 test*
 .vscode
+.venv
+poetry.lock
