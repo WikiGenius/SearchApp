@@ -1,0 +1,17 @@
+[tool.poetry]
+name = "searchapp"
+version = "0.1.0"
+description = ""
+authors = ["WikiGenius <muhammedelyamani92@gmail.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.10"
+kivy = "^2.1.0"
+kivymd = "^1.1.1"
+numpy = "^1.24.2"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
