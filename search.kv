@@ -18,19 +18,13 @@
         MDNavigationLayout:
             MDScreenManager:
                 MDScreen:
-                    MDTopAppBar:
-                        # title: "Navigation Drawer"
-                        elevation: 4
-                        pos_hint: {"top": 1}
-                        # md_bg_color: "#e7e4c0"
-                        # specific_text_color: "#4a4939"
-                        left_action_items: [["menu", lambda x: nav_drawer.set_state("open")]]
-
-                        Image:
-                            source: './data/logo.png'
-                            # size_hint: 0.2, 0.2
-                            # pos_hint: {'right': 0.95, 'y': 0.05}
                     FloatLayout:
+                
+                        MDNavigationRailMenuButton:
+                            pos_hint: {'left': 0.1, 'top': 0.99}
+                            on_release: nav_drawer.set_state("open")
+
+
                         Image:
                             id: detection_image
                             source: './data/upload.png'
@@ -43,11 +37,12 @@
                             size_hint: 0.5, None
                             height: dp(48)
                             pos_hint: {'center_x': 0.5, 'top': 0.98}
-                            hint_text: 'Search...'
+                            hint_text: 'SEARCH ITEM'
                             hint_text_color: app.theme_cls.disabled_hint_text_color
                             mode: "line"
-                            icon_right: "magnify"
-                            icon_right_color: app.theme_cls.primary_light
+                            icon_left: "magnify"
+                            icon_left_color: app.theme_cls.primary_light
+
                             line_color_focus: app.theme_cls.primary_light
                             line_color_normal: app.theme_cls.primary_light
                             md_bg_color: app.theme_cls.primary_light
@@ -57,19 +52,15 @@
                             id: find_object_button
                             size_hint: 0.07, None
                             height: dp(48)
-                            pos_hint: {'right': 0.95, 'top': 0.95}
-                            # text: 'Find Object'
+                            # pos_hint: {'right': 0.95, 'top': 0.95}
+                            pos_hint: {'center_x': 0.5,'top': 0.1}
+                            text: 'ANALYZE'
                             on_release: app.find_object()
 
-                            # Add icon
-                            MDIcon:
-                                icon: "./data/find_new.png"
-                                pos_hint: {"center_y": .5}
-                                size_hint: None, None
-                                size: self.parent.size
-
-
-
+                        Image:
+                            source: './data/logo.png'
+                            size_hint: 0.2, 0.2
+                            pos_hint: {'right': 0.95, 'y': 0.05}
             MDNavigationDrawer:
                 id: nav_drawer
                 radius: (0, 16, 16, 0)
