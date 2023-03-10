@@ -12,3 +12,4 @@ test*
 .vscode
 .venv
 poetry.lock
+designs

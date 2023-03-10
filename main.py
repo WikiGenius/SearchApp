@@ -21,11 +21,10 @@ class SearchApp(MDApp):
         self.theme_cls.primary_palette = "Red"
         self.theme_cls.colors.update(light_red_color)
         self.started = False
+        self.fps = 33
+        
         if platform == 'android':
-            self.fps = 5
             Window.bind(on_resize=hide_landscape_status_bar)
-        else:
-            self.fps = 20
         # Create instance of SearchDashboard
         self.screen = MainScreen(name='main')
 
@@ -64,7 +63,8 @@ class SearchApp(MDApp):
         frame = resize(frame, height=600)
 
         # Perform object detection on the frame using the YOLOv8n model
-        frame =  self.detector.detect(frame,  conf_thres=0.25, iou_thres=0.45, frame_count=self.frame_count, skip_frame = 1, filter_classes=self.filter_classes)
+        if self.filter_classes:
+            frame =  self.detector.detect(frame,  conf_thres=0.25, iou_thres=0.45, frame_count=self.frame_count, skip_frame = 1, filter_classes=self.filter_classes)
         if self.thread:
             cv2.line(frame, (20, 25), (127, 25), [85, 45, 255], 30)
             cv2.putText(frame, f'FPS: {int(self.fps)}', (11, 35), 0, 1, [
@@ -95,7 +95,12 @@ class SearchApp(MDApp):
         self.filter_classes = self.screen.search_input.text
         if self.filter_classes:
             self.filter_classes = self.filter_classes.split(',')    
-    
+            if platform == 'android':
+                self.fps = 5
+            else:
+                self.fps = 20
+        else:
+            self.fps = 33
     def dismiss_popup(self):
         # Dismiss the file chooser popup
         self._popup.dismiss()
