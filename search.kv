@@ -1,68 +1,121 @@
 # Author: Muhammed Elyamani
 # Date: 03/02/2023
 # GitHub: https://github.com/WikiGenius
+#:import get_color_from_hex kivy.utils.get_color_from_hex
+#:import FadeTransition kivy.uix.screenmanager.FadeTransition
+
+#:set rail_bg_color get_color_from_hex("#fffcf4")
+#:set fab_button_bg_color get_color_from_hex("#b0f0d6")
+#:set selected_item_bg_color get_color_from_hex("#e7e4c0")
+<HintBoxContainer@MDCard>
 
 <MainScreen>:
     detection_image: detection_image
     search_input: search_input
     upload_video_button: upload_video_button
     find_object_button: find_object_button
-    FloatLayout:
-        Image:
-            id: detection_image
-            source: './data/upload.png'
-            allow_stretch: True
-            keep_ratio: True
-            opacity: 0.1
+    MDScreen:
+        MDNavigationLayout:
+            MDScreenManager:
+                MDScreen:
+                    MDTopAppBar:
+                        # title: "Navigation Drawer"
+                        elevation: 4
+                        pos_hint: {"top": 1}
+                        # md_bg_color: "#e7e4c0"
+                        # specific_text_color: "#4a4939"
+                        left_action_items: [["menu", lambda x: nav_drawer.set_state("open")]]
 
-        MDTextField:
-            id: search_input
-            size_hint: 0.5, None
-            height: dp(48)
-            pos_hint: {'center_x': 0.5, 'top': 0.98}
-            hint_text: 'Search...'
-            hint_text_color: app.theme_cls.disabled_hint_text_color
-            mode: "line"
-            icon_right: "magnify"
-            icon_right_color: app.theme_cls.primary_light
-            line_color_focus: app.theme_cls.primary_light
-            line_color_normal: app.theme_cls.primary_light
-            md_bg_color: app.theme_cls.primary_light
+                        Image:
+                            source: './data/logo.png'
+                            # size_hint: 0.2, 0.2
+                            # pos_hint: {'right': 0.95, 'y': 0.05}
+                    FloatLayout:
+                        Image:
+                            id: detection_image
+                            source: './data/upload.png'
+                            allow_stretch: True
+                            keep_ratio: True
+                            opacity: 0.1
 
-        MDFillRoundFlatButton:
-            id: upload_video_button
-            size_hint: 0.07, None
-            height: dp(48)
-            pos_hint: {'x': 0.05, 'top': 0.95}
-            # text: 'Upload Video'
-            on_release: app.upload_video()
-        
-            # Add icon
-            MDIcon:
-                icon: "./data/upload_new.png"
-                pos_hint: {"center_y": .5}
-                size_hint: None, None
-                size: self.parent.size
-        
-        MDFillRoundFlatButton:
-            id: find_object_button
-            size_hint: 0.07, None
-            height: dp(48)
-            pos_hint: {'right': 0.95, 'top': 0.95}
-            # text: 'Find Object'
-            on_release: app.find_object()
-        
-            # Add icon
-            MDIcon:
-                icon: "./data/find_new.png"
-                pos_hint: {"center_y": .5}
-                size_hint: None, None
-                size: self.parent.size
+                        MDTextField:
+                            id: search_input
+                            size_hint: 0.5, None
+                            height: dp(48)
+                            pos_hint: {'center_x': 0.5, 'top': 0.98}
+                            hint_text: 'Search...'
+                            hint_text_color: app.theme_cls.disabled_hint_text_color
+                            mode: "line"
+                            icon_right: "magnify"
+                            icon_right_color: app.theme_cls.primary_light
+                            line_color_focus: app.theme_cls.primary_light
+                            line_color_normal: app.theme_cls.primary_light
+                            md_bg_color: app.theme_cls.primary_light
 
-        Image:
-            source: './data/logo.png'
-            size_hint: 0.2, 0.2
-            pos_hint: {'right': 0.95, 'y': 0.05}
+
+                        MDFillRoundFlatButton:
+                            id: find_object_button
+                            size_hint: 0.07, None
+                            height: dp(48)
+                            pos_hint: {'right': 0.95, 'top': 0.95}
+                            # text: 'Find Object'
+                            on_release: app.find_object()
+
+                            # Add icon
+                            MDIcon:
+                                icon: "./data/find_new.png"
+                                pos_hint: {"center_y": .5}
+                                size_hint: None, None
+                                size: self.parent.size
+
+
+
+            MDNavigationDrawer:
+                id: nav_drawer
+                radius: (0, 16, 16, 0)
+                md_bg_color: rail_bg_color
+                elevation: 4
+                shadow_radius: 16, 16, 0, 0
+                width: "240dp"
+                enable_swiping:False
+                anchor: "left"
+                MDNavigationDrawerMenu:
+
+                    MDNavigationDrawerHeader:
+                        # title: "Header title"
+                        title_color: "#4a4939"
+                        text: "Settings"
+                        spacing: "4dp"
+                        padding: "12dp", 0, 0, "56dp"
+                    MDNavigationDrawerItem:
+                        id: upload_video_button
+                        text: "Upload"
+                        icon: "upload"
+                        on_release: app.upload_video()
+                    MDNavigationDrawerDivider:
+
+                    MDNavigationDrawerLabel:
+                        text: "CONFIDENCE LEVEL"
+
+                    OneLineIconListItem:
+                        Myslider:
+                            id: slider
+                            min: 0
+                            max: 100
+                            value: 50
+                            hint: False
+                            hint_bg_color: "red"
+                            hint_text_color: "white"
+                            hint_radius: [6, 0, 6, 0]
+                            thumb_color_active: "red"
+                            thumb_color_inactive: "red"
+                            thumb_color_disabled: "red"
+                            track_color_active: "red"
+                            track_color_inactive: "red"
+                            show_off:True
+                            active:True
+                            color: 'blue'
+
 <LoadFile>:
     BoxLayout:
         size: root.size
@@ -83,3 +136,37 @@
                 text: "Load"
                 on_release: app.load(filechooser.path, filechooser.selection[0])
                 font_size:30
+<Myslider>
+    HintBoxContainer:
+        id: hint_box_update
+        size_hint: None, None
+        md_bg_color: root.hint_bg_color if root.hint_bg_color else [0, 0, 0, 0]
+        elevation: 1.5
+        opacity: 1 if root.active else 0
+        radius: root.hint_radius
+        padding: "6dp", "6dp", "6dp", "8dp"
+        shadow_color:
+            ([0, 0, 0, 0.6] if root.hint_bg_color else [0, 0, 0, 0]) \
+            if root.active else \
+            [0, 0, 0, 0]
+        size:
+            lbl_value.width + self.padding[0] * 2, \
+            lbl_value.height + self.padding[0]
+        pos:
+            (root.value_pos[0] - dp(9), root.center_y - hint_box_update.height / 2 - dp(30)) \
+            if root.orientation == "horizontal" else \
+            (root.center_x - hint_box_update.width / 2 + dp(30), root.value_pos[1] - dp(8))
+        MDLabel:
+            id: lbl_value
+            font_style: "Caption"
+            halign: "center"
+            theme_text_color: "Custom"
+            -text_size: None, None
+            adaptive_size: True
+            pos_hint: {"center_x": .5, "center_y": .5}
+            text_color:
+                app.theme_cls.primary_color \
+                if not root.hint_text_color else root.hint_text_color
+            text:
+                str(root.value) \
+                if isinstance(root.step, float) else str(int(root.value)) + " %"
