@@ -26,22 +26,38 @@
             MDScreenManager:
                 MDScreen:
 
-                    MDTopAppBar:
+                    MDBoxLayout:
+                        orientation: 'horizontal'
+                        size_hint_y:0.07
                         pos_hint: {"top": 1}
                         md_bg_color: black_color
                         specific_text_color: white_color
-                        left_action_items: [["menu", lambda x: nav_drawer.set_state("open")]]
-                    MDTextField:
-                        id: search_input
-                        size_hint: 0.5, None
-                        height: dp(48)
-                        pos_hint: {'center_x': 0.5, 'top': 0.98}
-                        hint_text: 'SEARCH ITEM'
-                        mode: "line"
-                        icon_left: "magnify"
-                        line_color_focus: light_Purple_color
-                        line_color_normal: light_Purple_color
+                        MDNavigationRailMenuButton:
+                            on_release: nav_drawer.set_state("open")
+                        Image:
+                            source: './data/logo.png'
+                            # size_hint: 0.2, 0.2
+                            pos_hint: {'center_x': 0.5,'center_y': 0.5}
                     FloatLayout:
+                        MDTextField:
+                            id: search_input
+                            color_mode: 'custom'
+
+                            size_hint: 0.5, None
+                            height: dp(48)
+                            pos_hint: {'center_x': 0.5, 'top': 0.9}
+                            hint_text: 'SEARCH ITEM'
+                            mode: "line"
+                            icon_left: "magnify"
+                            # icon_left_color: white_color
+                            line_color_focus: light_Purple_color
+                            line_color_normal: light_Purple_color
+                            # fill_color: dark_Purple_color
+                            # normal_color: dark_Purple_color
+                            # color_active: dark_Purple_color
+                            # current_hint_text_color: dark_Purple_color
+                            # text_color: dark_Purple_color
+                            # color_active: True
                         Image:
                             id: detection_image
                             source: './data/upload.png'
@@ -60,10 +76,7 @@
                             on_release: app.find_object()
                             md_bg_color: light_Purple_color
 
-                        Image:
-                            source: './data/logo.png'
-                            size_hint: 0.2, 0.2
-                            pos_hint: {'right': 0.95, 'y': 0.05}
+
             MDNavigationDrawer:
                 id: nav_drawer
                 radius: (0, 16, 16, 0)
@@ -127,7 +140,7 @@
                 font_size:30
             Button:
                 text: "Load"
-                on_release: app.load(filechooser.path, filechooser.selection[0])
+                on_release: app.load(filechooser.path, filechooser.selection[0]) if len(filechooser.selection) > 0 else None
                 font_size:30
 <Myslider>
     HintBoxContainer:
