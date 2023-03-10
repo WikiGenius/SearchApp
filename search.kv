@@ -4,9 +4,15 @@
 #:import get_color_from_hex kivy.utils.get_color_from_hex
 #:import FadeTransition kivy.uix.screenmanager.FadeTransition
 
-#:set rail_bg_color get_color_from_hex("#fffcf4")
-#:set fab_button_bg_color get_color_from_hex("#b0f0d6")
-#:set selected_item_bg_color get_color_from_hex("#e7e4c0")
+#:set light_red_color get_color_from_hex("#F63D54")
+#:set light_blue_color get_color_from_hex("#027FFF")
+#:set light_Purple_color  get_color_from_hex("#8876FE")
+#:set dark_Blue_color   get_color_from_hex("#0D1386")
+#:set dark_Purple_color get_color_from_hex("#3C44C3")
+#:set white_color get_color_from_hex("#ffffff")
+#:set black_color get_color_from_hex("#000000")
+
+
 <HintBoxContainer@MDCard>
 
 <MainScreen>:
@@ -18,35 +24,29 @@
         MDNavigationLayout:
             MDScreenManager:
                 MDScreen:
-                    FloatLayout:
                 
-                        MDNavigationRailMenuButton:
-                            pos_hint: {'left': 0.1, 'top': 0.99}
-                            on_release: nav_drawer.set_state("open")
-
-
+                    MDTopAppBar:
+                        pos_hint: {"top": 1}
+                        md_bg_color: black_color
+                        specific_text_color: white_color
+                        left_action_items: [["menu", lambda x: nav_drawer.set_state("open")]]
+                    MDTextField:
+                        id: search_input
+                        size_hint: 0.5, None
+                        height: dp(48)
+                        pos_hint: {'center_x': 0.5, 'top': 0.98}
+                        hint_text: 'SEARCH ITEM'
+                        mode: "line"
+                        icon_left: "magnify"
+                        line_color_focus: light_Purple_color
+                        line_color_normal: light_Purple_color
+                    FloatLayout:
                         Image:
                             id: detection_image
                             source: './data/upload.png'
                             allow_stretch: True
                             keep_ratio: True
                             opacity: 0.1
-
-                        MDTextField:
-                            id: search_input
-                            size_hint: 0.5, None
-                            height: dp(48)
-                            pos_hint: {'center_x': 0.5, 'top': 0.98}
-                            hint_text: 'SEARCH ITEM'
-                            hint_text_color: app.theme_cls.disabled_hint_text_color
-                            mode: "line"
-                            icon_left: "magnify"
-                            icon_left_color: app.theme_cls.primary_light
-
-                            line_color_focus: app.theme_cls.primary_light
-                            line_color_normal: app.theme_cls.primary_light
-                            md_bg_color: app.theme_cls.primary_light
-
 
                         MDFillRoundFlatButton:
                             id: find_object_button
@@ -64,7 +64,7 @@
             MDNavigationDrawer:
                 id: nav_drawer
                 radius: (0, 16, 16, 0)
-                md_bg_color: rail_bg_color
+                # md_bg_color: rail_bg_color
                 elevation: 4
                 shadow_radius: 16, 16, 0, 0
                 width: "240dp"
