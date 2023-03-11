@@ -6,7 +6,8 @@ from kivy.core.window import Window
 from kivy.uix.floatlayout import FloatLayout
 from kivymd.uix.slider import MDSlider
 
-model_path = './assets/weights/yolov6n_model.tflite'
+# model_path = './assets/weights/yolov6n_model.tflite'
+model_path = './assets/weights/yolov8n_float16.tflite'
 
 class Myslider(MDSlider):
     def on_touch_up(self, touch):
