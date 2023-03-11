@@ -4,8 +4,9 @@
 
 from utils.draw_boxes import draw_boxes
 from utils.model import get_model
-from utils.preprocess import preprocess, resize, create_rounded_img
+from utils.preprocess import preprocess, resize 
 from utils.detector import Detector
+from utils.render import create_rounded_img
 import random
 random.seed(0)
 #Name of the classes according to class indices.
