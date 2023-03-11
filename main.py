@@ -16,8 +16,6 @@ from kivy.graphics import Color
 from kivy.graphics import Rectangle
 from kivy.uix.floatlayout import FloatLayout
 
-Config.set("graphics", "width", "500")
-Config.set("graphics", "height", "300")
 class SearchApp(MDApp):
     theme_cls = ThemeManager()
     def build(self):
