@@ -61,8 +61,9 @@ class SearchApp(MDApp):
         frame = resize(frame, height=600)
     
         # Perform object detection on the frame using the YOLOv8n model
+        # print(self.screen.slider.value)
         if self.filter_classes:
-            frame =  self.detector.detect(frame,  conf_thres=0.25, iou_thres=0.45, frame_count=self.frame_count, skip_frame = 1, filter_classes=self.filter_classes)
+            frame =  self.detector.detect(frame,  conf_thres=self.screen.slider.value/100, iou_thres=0.45, frame_count=self.frame_count, skip_frame = 1, filter_classes=self.filter_classes)
         
         frame = create_rounded_img(frame, border_radius=40)
         

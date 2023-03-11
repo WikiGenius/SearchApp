@@ -22,7 +22,8 @@
     detection_image: detection_image
     search_input: search_input
     upload_video_button: upload_video_button
-    find_object_button: find_object_button   
+    find_object_button: find_object_button
+    slider: slider   
     MDScreen:
         MDNavigationLayout:
             MDScreenManager:
@@ -118,7 +119,7 @@
                             id: slider
                             min: 0
                             max: 100
-                            value: 50
+                            value: 25
                             hint: False
                             hint_text_color: "white"
                             hint_radius: [6, 0, 6, 0]
@@ -184,4 +185,4 @@
                 if not root.hint_text_color else root.hint_text_color
             text:
                 str(root.value) \
-                if isinstance(root.step, float) else str(int(root.value)) + " %"
+                if isinstance(root.step, float) else str(int(root.value)) + "%"
