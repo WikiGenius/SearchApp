@@ -8,7 +8,16 @@ random.seed(0)
 palette = (2 ** 11 - 1, 2 ** 15 - 1, 2 ** 20 - 1)
 data_deque = {}
 
-def draw_boxes(img, ratio, dwdh, output_data, conf_thres=0.25, filter_classes=None):
+def draw_boxes(img, ratio, dwdh, output_data, conf_thres=0.25, filter_classes=None, yolo_v8=True):
+    if yolo_v8:
+        img = draw_boxes_v8(img, ratio, dwdh, output_data, conf_thres, filter_classes)
+    else:
+        img = draw_boxes_vn(img, ratio, dwdh, output_data, conf_thres, filter_classes)
+        
+    return img
+
+
+def draw_boxes_v8(img, ratio, dwdh, output_data, conf_thres=0.25, filter_classes=None):
     output_data = np.transpose(output_data)
     scores = output_data[:, 4:]
     boxes = output_data[:, :4]
@@ -33,11 +42,26 @@ def draw_boxes(img, ratio, dwdh, output_data, conf_thres=0.25, filter_classes=No
             #Creating random colors for bounding box visualization.
             color = compute_color_for_labels(cls_id)
             name = f"{name}  {score}"
-            draw_ui_box(box, img, label=name, color=color, line_thickness=2)
+            draw_ui_box(box, img, label=name, color=color, line_thickness=2)    
     return img
 
-
-
+def draw_boxes_vn(img, ratio, dwdh, output_data, conf_thres=0.25, filter_classes=None):
+    for i,(batch_id,x0,y0,x1,y1,cls_id,score) in enumerate(output_data):
+        cls_id = int(cls_id)
+        name = utils.NAMES[cls_id]
+        score = round(float(score),2)
+        
+        if filter_classes and name in filter_classes and score > conf_thres:
+            box = np.array([x0,y0,x1,y1])
+            box -= np.array(dwdh*2)
+            box /= ratio
+            box = box.round().astype(np.int32).tolist()
+            
+            #Creating random colors for bounding box visualization.
+            color = compute_color_for_labels(cls_id)
+            name = f"{name}  {score}"
+            draw_ui_box(box, img, label=name, color=color, line_thickness=2)  
+    return img
 
 def draw_ui_box(x, img, label=None, color=None, line_thickness=None):
     # Plots one bounding box on image img
