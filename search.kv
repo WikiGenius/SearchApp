@@ -22,13 +22,11 @@
     detection_image: detection_image
     search_input: search_input
     upload_video_button: upload_video_button
-    find_object_button: find_object_button
-    
+    find_object_button: find_object_button   
     MDScreen:
         MDNavigationLayout:
             MDScreenManager:
                 MDScreen:
-
                     MDBoxLayout:
                         orientation: 'horizontal'
                         size_hint_y:0.07
@@ -71,8 +69,7 @@
                             pos_hint: {'center_x': 0.5, 'center_y': 0.5}
                             canvas.before:
                                 Color:
-                                    rgba: 1, 1, 1, 1
-                
+                                    rgba: 1, 1, 1, 1            
                                 RoundedRectangle:
                                     pos: self.pos
                                     # size: self.size

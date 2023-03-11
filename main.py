@@ -6,7 +6,7 @@ from kivy.uix.popup import Popup
 from kivy.clock import Clock
 from kivy.core.window import Window
 from kivy.graphics.texture import Texture
-from utils import Detector, resize
+from utils import Detector, resize, create_rounded_img
 from kivy import platform
 from utils.layout import *
 # from utils.permissions import *
@@ -65,10 +65,13 @@ class SearchApp(MDApp):
             self.detector.stop()
             return
         frame = resize(frame, height=600)
-
+    
         # Perform object detection on the frame using the YOLOv8n model
         if self.filter_classes:
             frame =  self.detector.detect(frame,  conf_thres=0.25, iou_thres=0.45, frame_count=self.frame_count, skip_frame = 1, filter_classes=self.filter_classes)
+        
+        frame = create_rounded_img(frame, border_radius=40)
+        
         if self.thread:
             cv2.line(frame, (20, 25), (127, 25), [85, 45, 255], 30)
             cv2.putText(frame, f'FPS: {int(self.fps)}', (11, 35), 0, 1, [
