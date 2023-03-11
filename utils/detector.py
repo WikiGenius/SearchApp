@@ -10,10 +10,16 @@ import numpy as np
 
 class Detector:
     def __init__(self, model_tflite_path, use_cuda=False):
+        self.yolo_v8 = 'v8' in model_tflite_path
+        
         self.use_cuda = use_cuda
         self.interpreter, self.input_details, self.output_details = get_model(
             model_tflite_path)
-        self.input_shape = self.input_details[0]['shape'][1:3]
+        if self.yolo_v8:
+            self.input_shape = self.input_details[0]['shape'][1:3]
+        else:
+            self.input_shape = self.input_details[0]['shape'][2:]
+            
         self.output_data = []
         # Variable to control when model is stopped
         self.stopped = True
@@ -40,20 +46,22 @@ class Detector:
 
         if self.frame_count % self.skip_frame == 0:
             prevTime = time.time()
-            w, h, chan = self.img.shape
-            im,  self.ratio, self.dwdh = preprocess(self.img, self.input_shape)
+            transpose=False
+            if not self.yolo_v8:
+                transpose = True
+            im,  self.ratio, self.dwdh = preprocess(self.img, self.input_shape, transpose)
+            
             # predict the model
             input = self.input_details[0]
-
             self.interpreter.set_tensor(input['index'], im)
             self.interpreter.invoke()
-            y = []
-            for output in self.output_details:
-                x = self.interpreter.get_tensor(output['index'])
-                y.append(x)
 
-            y = [x if isinstance(x, np.ndarray) else x.numpy() for x in y]
-            self.output_data = np.squeeze(y[0])
+            self.output_data = self.interpreter.get_tensor(self.output_details[0]['index'])
+
+            if self.yolo_v8:
+                self.output_data if isinstance(self.output_data, np.ndarray) else self.output_data.numpy()
+                self.output_data = np.squeeze(self.output_data[0])
+            
             currTime = time.time()
             self.fps = 1 / (currTime - prevTime)
             self.detect_started = True
@@ -74,7 +82,7 @@ class Detector:
             
         if self.detect_started :
             img = draw_boxes(img, self.ratio, self.dwdh, self.output_data,
-                             conf_thres, filter_classes=filter_classes)
+                             conf_thres, filter_classes=filter_classes, yolo_v8 = self.yolo_v8)
             cv2.line(img, (20, 25), (127, 25), [85, 45, 255], 30)
             cv2.putText(img, f'FPS: {int(self.fps)}', (11, 35), 0, 1, [
                     225, 255, 255], thickness=2, lineType=cv2.LINE_AA)
