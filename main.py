@@ -34,7 +34,6 @@ class SearchApp(MDApp):
         self.thread = True
 
         # Load YOLOv8n model for object detection
-        model_path = './assets/weights/yolov8n_float16.tflite'
         print(f"Is the model existed: {os.path.isfile(model_path)}")
         if self.thread:
             self.detector = Detector(model_path).start()
