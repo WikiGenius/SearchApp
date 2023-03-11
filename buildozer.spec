@@ -47,7 +47,8 @@ icon.filename = %(source.dir)s/data/icon.png
 
 # (list) Supported orientations
 # Valid options are: landscape, portrait, portrait-reverse or landscape-reverse
-orientation = portrait, landscape, portrait-reverse, landscape-reverse
+# orientation = portrait, landscape, portrait-reverse, landscape-reverse
+orientation = portrait
 
 #
 # OSX Specific
