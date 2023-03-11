@@ -10,11 +10,6 @@ from utils import Detector, resize, create_rounded_img
 from kivy import platform
 from utils.layout import *
 # from utils.permissions import *
-from kivy.app import App
-from kivy.config import Config
-from kivy.graphics import Color
-from kivy.graphics import Rectangle
-from kivy.uix.floatlayout import FloatLayout
 
 class SearchApp(MDApp):
     theme_cls = ThemeManager()
