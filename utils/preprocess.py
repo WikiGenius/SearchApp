@@ -34,10 +34,12 @@ def letterbox(im, new_shape=(640, 640), color=(114, 114, 114), auto=True, scaleu
     return im, r, (dw, dh)
 
 
-def preprocess(img, new_shape=(640, 640)):
+def preprocess(img, new_shape=(640, 640), transpose=False):
     image = img.copy()
     image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
     image, ratio, dwdh = letterbox(image, new_shape, auto=False)
+    if transpose:
+        image = image.transpose((2, 0, 1))
     image = np.expand_dims(image, 0)
     image = np.ascontiguousarray(image)
     image = image.astype(np.float32)
