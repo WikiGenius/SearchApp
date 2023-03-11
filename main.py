@@ -19,7 +19,6 @@ class SearchApp(MDApp):
         self.theme_cls.accent_palette = "Gray"
         self.theme_cls.theme_style = "Dark"
         self.theme_cls.primary_palette = "Red"
-        self.theme_cls.colors.update(light_red_color)
         self.started = False
         self.fps = 33
         

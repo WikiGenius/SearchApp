@@ -2,8 +2,6 @@
 # Date: 03/02/2023
 # GitHub: https://github.com/WikiGenius
 #:import get_color_from_hex kivy.utils.get_color_from_hex
-#:import FadeTransition kivy.uix.screenmanager.FadeTransition
-
 #:set light_red_color get_color_from_hex("#F63D54")
 #:set light_blue_color get_color_from_hex("#027FFF")
 #:set light_Purple_color  get_color_from_hex("#8876FE")
@@ -12,6 +10,11 @@
 #:set white_color get_color_from_hex("#ffffff")
 #:set black_color get_color_from_hex("#000000")
 
+<DrawerClickableItem@MDNavigationDrawerItem>
+    focus_color: light_Purple_color
+    text_color: white_color
+    icon_color: white_color
+    selected_color: white_color
 
 <HintBoxContainer@MDCard>
 
@@ -41,23 +44,22 @@
                     FloatLayout:
                         MDTextField:
                             id: search_input
-                            color_mode: 'custom'
-
                             size_hint: 0.5, None
                             height: dp(48)
                             pos_hint: {'center_x': 0.5, 'top': 0.9}
                             hint_text: 'SEARCH ITEM'
                             mode: "line"
                             icon_left: "magnify"
-                            # icon_left_color: white_color
+                            icon_left_color_normal: white_color
+                            icon_left_color_focus: white_color
+
                             line_color_focus: light_Purple_color
                             line_color_normal: light_Purple_color
-                            # fill_color: dark_Purple_color
-                            # normal_color: dark_Purple_color
-                            # color_active: dark_Purple_color
-                            # current_hint_text_color: dark_Purple_color
-                            # text_color: dark_Purple_color
-                            # color_active: True
+
+                            hint_text_color_focus: light_red_color
+
+                            # text_color_normal: light_red_color
+                            text_color_focus: light_red_color
                         Image:
                             id: detection_image
                             source: './data/upload.png'
@@ -90,11 +92,11 @@
 
                     MDNavigationDrawerHeader:
                         # title: "Header title"
-                        title_color: "#4a4939"
+                        # title_color: "#4a4939"
                         text: "Settings"
                         spacing: "4dp"
                         padding: "12dp", 0, 0, "56dp"
-                    MDNavigationDrawerItem:
+                    DrawerClickableItem:
                         id: upload_video_button
                         text: "Upload"
                         icon: "upload"
