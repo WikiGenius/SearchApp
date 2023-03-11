@@ -10,7 +10,14 @@ from utils import Detector, resize
 from kivy import platform
 from utils.layout import *
 # from utils.permissions import *
+from kivy.app import App
+from kivy.config import Config
+from kivy.graphics import Color
+from kivy.graphics import Rectangle
+from kivy.uix.floatlayout import FloatLayout
 
+Config.set("graphics", "width", "500")
+Config.set("graphics", "height", "300")
 class SearchApp(MDApp):
     theme_cls = ThemeManager()
     def build(self):
