@@ -11,14 +11,17 @@ from kivy import platform
 from utils.layout import *
 # from utils.permissions import *
 
+if platform !='android':
+    Window.size = (400, 800)
 class SearchApp(MDApp):
     theme_cls = ThemeManager()
     def build(self):
-        # self.theme_cls.primary_light
-        Window.clearcolor = (0.133, 0.133, 0.133, 1)  #set window background color to #222222
-        self.theme_cls.accent_palette = "Gray"
         self.theme_cls.theme_style = "Dark"
-        self.theme_cls.primary_palette = "Red"
+        
+        # self.theme_cls.primary_light
+        # Window.clearcolor = (0.133, 0.133, 0.133, 1)  #set window background color to #222222
+        # self.theme_cls.accent_palette = "Gray"
+        # self.theme_cls.primary_palette = "Red"
         self.started = False
         self.fps = 33
         

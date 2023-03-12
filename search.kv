@@ -66,7 +66,8 @@
                             # allow_stretch: True
                             keep_ratio: True
                             # size_hint_y: 0.6
-                            size_hint: 0.8, 0.6
+                            # size_hint: 0.8, 0.6
+                            size_hint_x: 0.9
                             pos_hint: {'center_x': 0.5, 'center_y': 0.5}
                         MDFillRoundFlatButton:
                             id: find_object_button
@@ -83,8 +84,8 @@
                 id: nav_drawer
                 radius: (0, 16, 16, 0)
                 # md_bg_color: rail_bg_color
-                elevation: 4
-                shadow_radius: 16, 16, 0, 0
+                # elevation: 4
+                # shadow_radius: 16, 16, 0, 0
                 width: "240dp"
                 enable_swiping:False
                 anchor: "left"
@@ -114,10 +115,10 @@
                             value: 25
                             hint: False
                             hint_text_color: "white"
-                            hint_radius: [6, 0, 6, 0]
+                            # hint_radius: [6, 0, 6, 0]
                             thumb_color_active: dark_Purple_color
                             thumb_color_inactive: dark_Purple_color
-                            thumb_color_disabled: light_Purple_color
+                            # thumb_color_disabled: light_Purple_color
                             track_color_active: light_Purple_color
                             track_color_inactive: light_Purple_color
                             show_off:True
