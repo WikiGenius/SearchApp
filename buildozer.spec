@@ -31,7 +31,7 @@ source.exclude_dirs = mobile_tflite, __pycache__, bin,test*,assets/images/*
 source.exclude_patterns = onnix2tflite.py
 
 # (str) Application versioning (method 1)
-version = 0.1
+version = 1
 
 
 # (list) Application requirements
