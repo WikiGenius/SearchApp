@@ -37,10 +37,13 @@ python main.py
 
 ## Screenshots
 
-<img src="assets/images/Desktop.png" alt="Desktop screenshot" width="500">
+<img src="assets/images/31.png" alt="Desktop screenshot" width="500">
+
+<img src="assets/images/32.png" alt="Desktop screenshot" width="500">
 
 
-<img src="assets/images/mobile.jpg" alt="Mobile screenshot" width="300">
+<img src="assets/images/11.jpg" alt="Mobile screenshot" width="300">
+<img src="assets/images/12.jpg" alt="Mobile screenshot" width="300">
 
 ## Author
 - Muhammed Elyamani

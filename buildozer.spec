@@ -1,13 +1,13 @@
 [app]
 
 # (str) Title of your application
-title = Finder
+title = SearchApp
 
 # (str) Package name
-package.name = finder_app
+package.name = SearchApp_app
 
 # (str) Package domain (needed for android/ios packaging)
-package.domain = org.finder
+package.domain = org.SearchApp
 
 # (str) Source code where the main.py live
 source.dir = .
@@ -31,7 +31,7 @@ source.exclude_dirs = mobile_tflite, __pycache__, bin,test*,assets/images/*
 source.exclude_patterns = onnix2tflite.py
 
 # (str) Application versioning (method 1)
-version = 1
+version = 1.0
 
 
 # (list) Application requirements
