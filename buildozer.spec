@@ -197,7 +197,7 @@ android.api = 33
 #android.add_resources =
 
 # (list) Gradle dependencies to add
-#android.gradle_dependencies =
+# android.gradle_dependencies = org.tensorflow:tensorflow-lite:+, org.tensorflow:tensorflow-lite-gpu:+,  org.tensorflow:tensorflow-lite-support:+
 
 # (bool) Enable AndroidX support. Enable when 'android.gradle_dependencies'
 # contains an 'androidx' package, or any package from Kotlin source.

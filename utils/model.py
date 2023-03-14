@@ -12,14 +12,14 @@ def get_model(model_path, edgetpu = False, num_threads = None):
         import tensorflow as tf
         Interpreter, load_delegate = tf.lite.Interpreter, tf.lite.experimental.load_delegate
     if edgetpu:  # TF Edge TPU https://coral.ai/software/#edgetpu-runtime
-        print(f'Loading {model_path} for TensorFlow Lite Edge TPU inference...')
+        # print(f'Loading {model_path} for TensorFlow Lite Edge TPU inference...')
         delegate = {
             'Linux': 'libedgetpu.so.1',
             'Darwin': 'libedgetpu.1.dylib',
             'Windows': 'edgetpu.dll'}[platform.system()]
         interpreter = Interpreter(model_path=model_path, experimental_delegates=[load_delegate(delegate)], num_threads=num_threads)
     else:  # TFLite
-        print(f'Loading {model_path} for TensorFlow Lite inference...')
+        # print(f'Loading {model_path} for TensorFlow Lite inference...')
         interpreter = Interpreter(model_path=model_path, num_threads=num_threads)  # load TFLite model
     #Allocate tensors.
     interpreter.allocate_tensors()
